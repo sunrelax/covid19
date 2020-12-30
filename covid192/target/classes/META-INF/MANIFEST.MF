@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: giuseppe
+Build-Jdk: 11
+Implementation-Title: covid19
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: it.gc
+Implementation-URL: https://spring.io/projects/spring-boot/covid19
+Created-By: Maven Integration for Eclipse
+
