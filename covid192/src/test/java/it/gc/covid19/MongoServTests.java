@@ -14,13 +14,13 @@ import it.gc.covid19.repository.NazionaleRep;
 import it.gc.covid19.repository.NotaRep;
 import it.gc.covid19.repository.ProvinciaRep;
 import it.gc.covid19.repository.RegioneRep;
-import it.gc.covid19.service.NotaMongoSer;
+import it.gc.covid19.service.NotaMSer;
 
 @SpringBootTest
 class MongoServTests {
 
 	@Autowired
-	private NotaMongoSer notaMongoSer;
+	private NotaMSer notaMongoSer;
 	@Autowired
 	private NotaRep notaRep;
 	@Autowired

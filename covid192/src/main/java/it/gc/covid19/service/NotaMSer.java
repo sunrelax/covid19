@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import it.gc.covid19.document.NotaDoc;
 
 @Service
-public class NotaMongoSer {
+public class NotaMSer {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
@@ -20,23 +20,23 @@ public class NotaMongoSer {
 		return mongoTemplate.findAll(NotaDoc.class, "note");
 	}
 
-	public List<NotaDoc> getNote(String dataDa) {
+	public List<NotaDoc> getNoteDa(String dataDa) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa));
 		List<NotaDoc> note = mongoTemplate.find(query, NotaDoc.class);
 		return note;
 	}
 
-//	public List<NotaDoc> getNote(String dataA) {
-//		Query query = new Query();
-//		query.addCriteria(Criteria.where("data").lt(dataA));
-//		List<NotaDoc> note = mongoTemplate.find(query, NotaDoc.class);
-//		return note;
-//	}
+	public List<NotaDoc> getNoteA(String dataA) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("data").lte(dataA));
+		List<NotaDoc> note = mongoTemplate.find(query, NotaDoc.class);
+		return note;
+	}
 
 	public List<NotaDoc> getNote(String dataDa, String dataA) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("data").gt(dataDa).lt(dataA));
+		query.addCriteria(Criteria.where("data").gte(dataDa).lte(dataA));
 		List<NotaDoc> note = mongoTemplate.find(query, NotaDoc.class);
 		return note;
 	}
