@@ -16,25 +16,25 @@ public class RegioneMSer {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	public List<RegioneDoc> getNote() {
-		return mongoTemplate.findAll(RegioneDoc.class, "note");
+	public List<RegioneDoc> getRegioni() {
+		return mongoTemplate.findAll(RegioneDoc.class, "regioni");
 	}
 
-	public List<RegioneDoc> getNoteDa(String dataDa) {
+	public List<RegioneDoc> getRegioniDa(String dataDa) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa));
 		List<RegioneDoc> regioni = mongoTemplate.find(query, RegioneDoc.class);
 		return regioni;
 	}
 
-	public List<RegioneDoc> getNoteA(String dataA) {
+	public List<RegioneDoc> getRegioniA(String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").lte(dataA));
 		List<RegioneDoc> regioni = mongoTemplate.find(query, RegioneDoc.class);
 		return regioni;
 	}
 
-	public List<RegioneDoc> getNote(String dataDa, String dataA) {
+	public List<RegioneDoc> getRegioni(String dataDa, String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa).lte(dataA));
 		List<RegioneDoc> regioni = mongoTemplate.find(query, RegioneDoc.class);

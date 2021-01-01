@@ -16,25 +16,25 @@ public class NazionaleMSer {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	public List<NazionaleDoc> getNote() {
-		return mongoTemplate.findAll(NazionaleDoc.class, "note");
+	public List<NazionaleDoc> getNazionali() {
+		return mongoTemplate.findAll(NazionaleDoc.class, "nazionale");
 	}
 
-	public List<NazionaleDoc> getNoteDa(String dataDa) {
+	public List<NazionaleDoc> getNazionaliDa(String dataDa) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa));
 		List<NazionaleDoc> nazionali = mongoTemplate.find(query, NazionaleDoc.class);
 		return nazionali;
 	}
 
-	public List<NazionaleDoc> getNoteA(String dataA) {
+	public List<NazionaleDoc> getNazionaliA(String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").lte(dataA));
 		List<NazionaleDoc> nazionali = mongoTemplate.find(query, NazionaleDoc.class);
 		return nazionali;
 	}
 
-	public List<NazionaleDoc> getNote(String dataDa, String dataA) {
+	public List<NazionaleDoc> getNazionali(String dataDa, String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa).lte(dataA));
 		List<NazionaleDoc> nazionali = mongoTemplate.find(query, NazionaleDoc.class);

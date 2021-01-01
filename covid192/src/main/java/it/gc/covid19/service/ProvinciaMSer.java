@@ -16,25 +16,25 @@ public class ProvinciaMSer {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	public List<ProvinciaDoc> getNote() {
-		return mongoTemplate.findAll(ProvinciaDoc.class, "note");
+	public List<ProvinciaDoc> getProvince() {
+		return mongoTemplate.findAll(ProvinciaDoc.class, "province");
 	}
 
-	public List<ProvinciaDoc> getNoteDa(String dataDa) {
+	public List<ProvinciaDoc> getProvinceDa(String dataDa) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa));
 		List<ProvinciaDoc> province = mongoTemplate.find(query, ProvinciaDoc.class);
 		return province;
 	}
 
-	public List<ProvinciaDoc> getNoteA(String dataA) {
+	public List<ProvinciaDoc> getProvinceA(String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").lte(dataA));
 		List<ProvinciaDoc> province = mongoTemplate.find(query, ProvinciaDoc.class);
 		return province;
 	}
 
-	public List<ProvinciaDoc> getNote(String dataDa, String dataA) {
+	public List<ProvinciaDoc> getProvince(String dataDa, String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa).lte(dataA));
 		List<ProvinciaDoc> province = mongoTemplate.find(query, ProvinciaDoc.class);

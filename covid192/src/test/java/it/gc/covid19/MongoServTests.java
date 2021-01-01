@@ -10,63 +10,62 @@ import it.gc.covid19.document.NazionaleDoc;
 import it.gc.covid19.document.NotaDoc;
 import it.gc.covid19.document.ProvinciaDoc;
 import it.gc.covid19.document.RegioneDoc;
-import it.gc.covid19.repository.NazionaleRep;
-import it.gc.covid19.repository.NotaRep;
-import it.gc.covid19.repository.ProvinciaRep;
-import it.gc.covid19.repository.RegioneRep;
+import it.gc.covid19.service.NazionaleMSer;
 import it.gc.covid19.service.NotaMSer;
+import it.gc.covid19.service.ProvinciaMSer;
+import it.gc.covid19.service.RegioneMSer;
 
 @SpringBootTest
 class MongoServTests {
 
 	@Autowired
-	private NotaMSer notaMongoSer;
+	private NazionaleMSer nazionaleMSer;
 	@Autowired
-	private NotaRep notaRep;
+	private NotaMSer notaMSer;
 	@Autowired
-	private ProvinciaRep provinciaRep;
+	private ProvinciaMSer provinciaMSer;
 	@Autowired
-	private RegioneRep regioneRep;
+	private RegioneMSer regioneMSer;
 
-//	@Test
-//	public void findAllNazionale() {
-//		List<NazionaleDoc> nazionali = nazionaleRep.findAll();
-//		for(NazionaleDoc nazionale: nazionali) {
-//			System.out.println(nazionale.toString());
-//		}
-//	}
-	
-//	@Test
-//	public void findAllNote() {
-//		List<NotaDoc> note = notaMongoSer.getNote();
-//		for(NotaDoc nota: note) {
-//			System.out.println(nota.getData() + " " + nota.getNote());
-//		}
-//	}
-	
 	@Test
-	public void findAllNoteDataDa() {
-		String dataDa = "2020-07-06T17:00:00";
-		List<NotaDoc> note = notaMongoSer.getNote(dataDa);
-		for(NotaDoc nota: note) {
+	public void findAllNazionaleDa() {
+		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa("2020-12-20T17:00:00");
+		for (NazionaleDoc nazionale : nazionali) {
+			System.out.println(nazionale.toString());
+		}
+	}
+
+	@Test
+	public void findAllNote() {
+		List<NotaDoc> note = notaMSer.getNote();
+		for (NotaDoc nota : note) {
 			System.out.println(nota.getData() + " " + nota.getNote());
 		}
 	}
-	
-//	@Test
-//	public void findAllProvince() {
-//		List<ProvinciaDoc> province = provinciaRep.findAll();
-//		for(ProvinciaDoc provincia: province) {
-//			System.out.println(provincia.toString());
-//		}
-//	}
-//	
-//	@Test
-//	public void findAllRegioni() {
-//		List<RegioneDoc> regioni = regioneRep.findAll();
-//		for(RegioneDoc regione: regioni) {
-//			System.out.println(regione.toString());
-//		}
-//	}
+
+	@Test
+	public void findAllNoteDataDa() {
+		String dataDa = "2020-07-06T17:00:00";
+		List<NotaDoc> note = notaMSer.getNoteDa(dataDa);
+		for (NotaDoc nota : note) {
+			System.out.println(nota.getData() + " " + nota.getNote());
+		}
+	}
+
+	@Test
+	public void findAllProvince() {
+		List<ProvinciaDoc> province = provinciaMSer.getProvince();
+		for (ProvinciaDoc provincia : province) {
+			System.out.println(provincia.toString());
+		}
+	}
+
+	@Test
+	public void findAllRegioni() {
+		List<RegioneDoc> regioni = regioneMSer.getRegioni();
+		for (RegioneDoc regione : regioni) {
+			System.out.println(regione.toString());
+		}
+	}
 
 }
