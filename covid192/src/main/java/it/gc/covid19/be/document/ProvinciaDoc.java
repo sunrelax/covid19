@@ -1,4 +1,4 @@
-package it.gc.covid19.document;
+package it.gc.covid19.be.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

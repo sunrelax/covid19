@@ -1,9 +1,11 @@
-package it.gc.covid19.controller;
+package it.gc.covid19.be.controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -14,14 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import be.ceau.chart.LineChart;
-import it.gc.covid19.document.NazionaleDoc;
-import it.gc.covid19.service.NazionaleCSer;
-import it.gc.covid19.service.NazionaleMSer;
-import it.gc.covid19.util.NazionaleE;
+import it.gc.covid19.be.document.NazionaleDoc;
+import it.gc.covid19.be.service.NazionaleCSer;
+import it.gc.covid19.be.service.NazionaleMSer;
+import it.gc.covid19.be.util.NazionaleE;
 
 @RestController
 @RequestMapping("/nazionale")
 public class NazionaleCon {
+
+	Logger logger = LoggerFactory.getLogger(NazionaleCon.class);
 
 	@Autowired
 	private NazionaleMSer nazionaleMSer;
@@ -35,7 +39,7 @@ public class NazionaleCon {
 
 		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa(dataDa);
 		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.valueOf(nazionaleE));
-		System.out.println(chart.toJson());
+		logger.info("chart json: " + chart.toJson());
 
 		return ResponseEntity.ok(chart);
 	}

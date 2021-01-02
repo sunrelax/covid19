@@ -1,4 +1,4 @@
-package it.gc.covid19;
+package it.gc.covid19.be;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

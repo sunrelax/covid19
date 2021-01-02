@@ -1,5 +1,5 @@
 
-package it.gc.covid19.service;
+package it.gc.covid19.be.service;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import it.gc.covid19.document.NazionaleDoc;
+import it.gc.covid19.be.document.NazionaleDoc;
 
 @Service
 public class NazionaleMSer {

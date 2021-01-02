@@ -1,4 +1,4 @@
-package it.gc.covid19.util;
+package it.gc.covid19.be.util;
 
 public enum NazionaleE {
 	ricoverati_con_sintomi("getRicoverati_con_sintomi"), terapia_intensiva("getTerapia_intensiva"),

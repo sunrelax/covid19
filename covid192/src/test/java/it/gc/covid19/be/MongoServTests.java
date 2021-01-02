@@ -1,22 +1,26 @@
-package it.gc.covid19;
+package it.gc.covid19.be;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import it.gc.covid19.document.NazionaleDoc;
-import it.gc.covid19.document.NotaDoc;
-import it.gc.covid19.document.ProvinciaDoc;
-import it.gc.covid19.document.RegioneDoc;
-import it.gc.covid19.service.NazionaleMSer;
-import it.gc.covid19.service.NotaMSer;
-import it.gc.covid19.service.ProvinciaMSer;
-import it.gc.covid19.service.RegioneMSer;
+import it.gc.covid19.be.document.NazionaleDoc;
+import it.gc.covid19.be.document.NotaDoc;
+import it.gc.covid19.be.document.ProvinciaDoc;
+import it.gc.covid19.be.document.RegioneDoc;
+import it.gc.covid19.be.service.NazionaleMSer;
+import it.gc.covid19.be.service.NotaMSer;
+import it.gc.covid19.be.service.ProvinciaMSer;
+import it.gc.covid19.be.service.RegioneMSer;
 
 @SpringBootTest
 class MongoServTests {
+
+	Logger logger = LoggerFactory.getLogger(MongoServTests.class);
 
 	@Autowired
 	private NazionaleMSer nazionaleMSer;
@@ -31,7 +35,7 @@ class MongoServTests {
 	public void findAllNazionaleDa() {
 		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa("2020-12-20T17:00:00");
 		for (NazionaleDoc nazionale : nazionali) {
-			System.out.println(nazionale.toString());
+			logger.info(nazionale.toString());
 		}
 	}
 
@@ -39,7 +43,7 @@ class MongoServTests {
 	public void findAllNote() {
 		List<NotaDoc> note = notaMSer.getNote();
 		for (NotaDoc nota : note) {
-			System.out.println(nota.getData() + " " + nota.getNote());
+			logger.info(nota.getData() + " " + nota.getNote());
 		}
 	}
 
@@ -48,7 +52,7 @@ class MongoServTests {
 		String dataDa = "2020-07-06T17:00:00";
 		List<NotaDoc> note = notaMSer.getNoteDa(dataDa);
 		for (NotaDoc nota : note) {
-			System.out.println(nota.getData() + " " + nota.getNote());
+			logger.info(nota.getData() + " " + nota.getNote());
 		}
 	}
 
@@ -56,7 +60,7 @@ class MongoServTests {
 	public void findAllProvince() {
 		List<ProvinciaDoc> province = provinciaMSer.getProvince();
 		for (ProvinciaDoc provincia : province) {
-			System.out.println(provincia.toString());
+			logger.info(provincia.toString());
 		}
 	}
 
@@ -64,7 +68,7 @@ class MongoServTests {
 	public void findAllRegioni() {
 		List<RegioneDoc> regioni = regioneMSer.getRegioni();
 		for (RegioneDoc regione : regioni) {
-			System.out.println(regione.toString());
+			logger.info(regione.toString());
 		}
 	}
 

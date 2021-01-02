@@ -1,4 +1,4 @@
-package it.gc.covid19.service;
+package it.gc.covid19.be.service;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,8 +18,9 @@ import be.ceau.chart.options.LineOptions;
 import be.ceau.chart.options.elements.Fill;
 import be.ceau.chart.options.scales.LinearScale;
 import be.ceau.chart.options.scales.LinearScales;
-import it.gc.covid19.document.NazionaleDoc;
-import it.gc.covid19.util.NazionaleE;
+import it.gc.covid19.be.document.NazionaleDoc;
+import it.gc.covid19.be.util.NazionaleE;
+
 @Service
 public class NazionaleCSer {
 
@@ -48,7 +49,7 @@ public class NazionaleCSer {
 	}
 
 	private LineDataset createLineDataset(NazionaleE nazionaleE) {
-		return new LineDataset().setLabel(nazionaleE.name()).setFill(new Fill(true)).setLineTension(0.1f)
+		return new LineDataset().setLabel(nazionaleE.name()).setFill(new Fill<Boolean>(true)).setLineTension(0.1f)
 				.setBackgroundColor(new Color(75, 192, 192, 0.4)).setBorderColor(new Color(75, 192, 192, 1))
 				.setBorderCapStyle(BorderCapStyle.BUTT).setBorderDashOffset(0.0f)
 				.setBorderJoinStyle(BorderJoinStyle.MITER).addPointBorderColor(new Color(75, 192, 192, 1))

@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.gc</groupId>
-	<artifactId>covid19</artifactId>
+	<artifactId>covid19.be</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>covid19</name>
 	<description>Covid19 project for Spring Boot</description>

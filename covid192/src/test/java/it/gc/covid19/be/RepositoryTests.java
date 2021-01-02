@@ -1,22 +1,26 @@
-package it.gc.covid19;
+package it.gc.covid19.be;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import it.gc.covid19.document.NazionaleDoc;
-import it.gc.covid19.document.NotaDoc;
-import it.gc.covid19.document.ProvinciaDoc;
-import it.gc.covid19.document.RegioneDoc;
-import it.gc.covid19.repository.NazionaleRep;
-import it.gc.covid19.repository.NotaRep;
-import it.gc.covid19.repository.ProvinciaRep;
-import it.gc.covid19.repository.RegioneRep;
+import it.gc.covid19.be.document.NazionaleDoc;
+import it.gc.covid19.be.document.NotaDoc;
+import it.gc.covid19.be.document.ProvinciaDoc;
+import it.gc.covid19.be.document.RegioneDoc;
+import it.gc.covid19.be.repository.NazionaleRep;
+import it.gc.covid19.be.repository.NotaRep;
+import it.gc.covid19.be.repository.ProvinciaRep;
+import it.gc.covid19.be.repository.RegioneRep;
 
 @SpringBootTest
 class RepositoryTests {
+	
+	Logger logger = LoggerFactory.getLogger(RepositoryTests.class);
 
 	@Autowired
 	private NazionaleRep nazionaleRep;
@@ -31,7 +35,7 @@ class RepositoryTests {
 	public void findAllNazionale() {
 		List<NazionaleDoc> nazionali = nazionaleRep.findAll();
 		for (NazionaleDoc nazionale : nazionali) {
-			System.out.println(nazionale.toString());
+			logger.info(nazionale.toString());
 		}
 	}
 
@@ -39,7 +43,7 @@ class RepositoryTests {
 	public void findAllNote() {
 		List<NotaDoc> note = notaRep.findAll();
 		for (NotaDoc nota : note) {
-			System.out.println(nota.getData() + " " + nota.getNote());
+			logger.info(nota.getData() + " " + nota.getNote());
 		}
 	}
 
@@ -47,7 +51,7 @@ class RepositoryTests {
 	public void findAllProvince() {
 		List<ProvinciaDoc> province = provinciaRep.findAll();
 		for (ProvinciaDoc provincia : province) {
-			System.out.println(provincia.toString());
+			logger.info(provincia.toString());
 		}
 	}
 
@@ -55,7 +59,7 @@ class RepositoryTests {
 	public void findAllRegioni() {
 		List<RegioneDoc> regioni = regioneRep.findAll();
 		for (RegioneDoc regione : regioni) {
-			System.out.println(regione.toString());
+			logger.info(regione.toString());
 		}
 	}
 

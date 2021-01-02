@@ -1,8 +1,8 @@
-package it.gc.covid19.repository;
+package it.gc.covid19.be.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import it.gc.covid19.document.RegioneDoc;
+import it.gc.covid19.be.document.RegioneDoc;
 
 public interface RegioneRep extends MongoRepository<RegioneDoc, String> {
 

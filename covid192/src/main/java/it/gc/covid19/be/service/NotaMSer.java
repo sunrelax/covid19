@@ -1,5 +1,5 @@
 
-package it.gc.covid19.service;
+package it.gc.covid19.be.service;
 
 import java.util.List;
 
@@ -9,36 +9,36 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import it.gc.covid19.document.RegioneDoc;
+import it.gc.covid19.be.document.NotaDoc;
 
 @Service
-public class RegioneMSer {
+public class NotaMSer {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	public List<RegioneDoc> getRegioni() {
-		return mongoTemplate.findAll(RegioneDoc.class, "regioni");
+	public List<NotaDoc> getNote() {
+		return mongoTemplate.findAll(NotaDoc.class, "note");
 	}
 
-	public List<RegioneDoc> getRegioniDa(String dataDa) {
+	public List<NotaDoc> getNoteDa(String dataDa) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa));
-		List<RegioneDoc> regioni = mongoTemplate.find(query, RegioneDoc.class);
-		return regioni;
+		List<NotaDoc> note = mongoTemplate.find(query, NotaDoc.class);
+		return note;
 	}
 
-	public List<RegioneDoc> getRegioniA(String dataA) {
+	public List<NotaDoc> getNoteA(String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").lte(dataA));
-		List<RegioneDoc> regioni = mongoTemplate.find(query, RegioneDoc.class);
-		return regioni;
+		List<NotaDoc> note = mongoTemplate.find(query, NotaDoc.class);
+		return note;
 	}
 
-	public List<RegioneDoc> getRegioni(String dataDa, String dataA) {
+	public List<NotaDoc> getNote(String dataDa, String dataA) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("data").gte(dataDa).lte(dataA));
-		List<RegioneDoc> regioni = mongoTemplate.find(query, RegioneDoc.class);
-		return regioni;
+		List<NotaDoc> note = mongoTemplate.find(query, NotaDoc.class);
+		return note;
 	}
 
 }
