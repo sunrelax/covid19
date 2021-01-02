@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class NazionaleCon {
 	@Autowired
 	private NazionaleCSer nazionaleCSer;
 
-	@GetMapping("/{nazionaleE}")
+	@GetMapping("/chart/line/{nazionaleE}")
 	public ResponseEntity<LineChart> getLineChart(@PathVariable String nazionaleE, @RequestParam String dataDa)
 			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, IOException {
@@ -39,4 +40,21 @@ public class NazionaleCon {
 		return ResponseEntity.ok(chart);
 	}
 
+	@GetMapping("/dati")
+	public ResponseEntity<List<NazionaleDoc>> getData(@RequestParam(required = false) String dataDa,
+			@RequestParam(required = false) String dataA) throws NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
+		List<NazionaleDoc> nazionali = null;
+		if (!StringUtils.hasText(dataDa) && !StringUtils.hasText(dataA)) {
+			nazionali = nazionaleMSer.getNazionali();
+		} else if (StringUtils.hasText(dataDa) && StringUtils.hasText(dataA)) {
+			nazionali = nazionaleMSer.getNazionali(dataDa, dataA);
+		} else if (StringUtils.hasText(dataDa)) {
+			nazionali = nazionaleMSer.getNazionaliDa(dataDa);
+		} else if (StringUtils.hasText(dataA)) {
+			nazionali = nazionaleMSer.getNazionaliA(dataA);
+		}
+
+		return ResponseEntity.ok(nazionali);
+	}
 }

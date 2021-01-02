@@ -36,7 +36,7 @@ public class NazionaleMSer {
 
 	public List<NazionaleDoc> getNazionali(String dataDa, String dataA) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("data").gte(dataDa).lte(dataA));
+		query.addCriteria(Criteria.where("data").lte(dataA).gte(dataDa));
 		List<NazionaleDoc> nazionali = mongoTemplate.find(query, NazionaleDoc.class);
 		return nazionali;
 	}

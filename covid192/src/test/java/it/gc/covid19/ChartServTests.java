@@ -29,5 +29,13 @@ public class ChartServTests {
 		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.nuovi_positivi);
 		System.out.println(chart.toJson());
 	}
+	
+	@Test
+	public void getData() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, IOException {
+		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa("2020-12-20T17:00:00");
+		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.nuovi_positivi);
+		System.out.println(chart.toJson());
+	}
 
 }
