@@ -8,6 +8,7 @@
 .sts4-cache
 .attach_pid*
 */target/**
+*/.mvn/**
 
 ### IntelliJ IDEA ###
 .idea
