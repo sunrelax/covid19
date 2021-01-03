@@ -1,5 +1,6 @@
 package it.gc.covid19.be.document;
 
+import it.gc.covid19.be.util.Type;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,6 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.lang.reflect.Method;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Document(collection = "nazionale")
 @NoArgsConstructor
@@ -40,4 +46,5 @@ public class NazionaleDoc {
 	private String ingressi_terapia_intensiva;
 	private String note_test;
 	private String note_casi;
+
 }
