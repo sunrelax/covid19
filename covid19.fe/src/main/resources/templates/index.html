@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>Home</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3 th:text="${message}">Message</h3>
+		<p>
+			<a href="nazionale">Nazionale</a>
+		</p>
+		<p>
+			<a href="regionale">Regionale</a>
+		</p>
+		<p>
+			<a href="provinciale">Provinciale</a>
+		</p>
+	</div>
+</body>
+</html>
