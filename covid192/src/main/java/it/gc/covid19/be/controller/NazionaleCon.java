@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,12 +33,17 @@ public class NazionaleCon {
 	@Autowired
 	private NazionaleCSer nazionaleCSer;
 
-	@GetMapping("/chart/line/{nazionaleE}")
-	public ResponseEntity<LineChart> getLineChart(@PathVariable String nazionaleE, @RequestParam String dataDa)
+	@GetMapping(value = "/line/{nazionaleE}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LineChart> getLineChart(@PathVariable String nazionaleE, @RequestParam(required = false) String dataDa)
 			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, IOException {
-
-		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa(dataDa);
+		List<NazionaleDoc> nazionali = null;
+		if(StringUtils.hasText(dataDa)) {
+			nazionali = nazionaleMSer.getNazionaliDa(dataDa);	
+		} else {
+			nazionali = nazionaleMSer.getNazionali();	
+		}
+		
 		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.valueOf(nazionaleE));
 		logger.info("chart json: " + chart.toJson());
 
