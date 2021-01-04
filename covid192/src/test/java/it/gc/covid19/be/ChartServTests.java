@@ -14,7 +14,7 @@ import be.ceau.chart.LineChart;
 import it.gc.covid19.be.document.NazionaleDoc;
 import it.gc.covid19.be.service.NazionaleCSer;
 import it.gc.covid19.be.service.NazionaleMSer;
-import it.gc.covid19.be.util.NazionaleE;
+import it.gc.covid19.be.util.Type;
 
 @SpringBootTest
 public class ChartServTests {
@@ -30,7 +30,7 @@ public class ChartServTests {
 	public void getLineChart() throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, IOException {
 		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa("2020-12-20T17:00:00");
-		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.nuovi_positivi);
+		LineChart chart = nazionaleCSer.getLineChart(nazionali, Type.nuovi_positivi);
 		logger.info(chart.toJson());
 	}
 
@@ -38,7 +38,7 @@ public class ChartServTests {
 	public void getData() throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, IOException {
 		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa("2020-12-20T17:00:00");
-		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.nuovi_positivi);
+		LineChart chart = nazionaleCSer.getLineChart(nazionali, Type.nuovi_positivi);
 		logger.info(chart.toJson());
 	}
 

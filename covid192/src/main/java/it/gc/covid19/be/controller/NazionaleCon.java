@@ -19,7 +19,7 @@ import be.ceau.chart.LineChart;
 import it.gc.covid19.be.document.NazionaleDoc;
 import it.gc.covid19.be.service.NazionaleCSer;
 import it.gc.covid19.be.service.NazionaleMSer;
-import it.gc.covid19.be.util.NazionaleE;
+import it.gc.covid19.be.util.Type;
 
 @RestController
 @RequestMapping("/nazionale")
@@ -38,7 +38,7 @@ public class NazionaleCon {
 			InvocationTargetException, IOException {
 
 		List<NazionaleDoc> nazionali = nazionaleMSer.getNazionaliDa(dataDa);
-		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.valueOf(nazionaleE));
+		LineChart chart = nazionaleCSer.getLineChart(nazionali, Type.valueOf(nazionaleE));
 		logger.info("chart json: " + chart.toJson());
 
 		return ResponseEntity.ok(chart);
