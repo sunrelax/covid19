@@ -12,7 +12,10 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     
   </head>
-  
+  <!-- REQUIRED JS SCRIPTS -->
+    <script th:src="@{'/webjars/jquery/1.11.1/jquery.min.js'}"></script>
+    <script th:src="@{'/webjars/bootstrap/3.3.7/js/bootstrap.min.js'}"></script>
+	<script th:src="@{'/webjars/chartjs/2.9.3/Chart.bundle.js'}"></script>
   <body>
      <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -44,9 +47,7 @@
 
     </div>
 
-    <!-- REQUIRED JS SCRIPTS -->
-    <script th:src="@{'/webjars/jquery/1.11.1/jquery.min.js'}"></script>
-    <script th:src="@{'/webjars/bootstrap/3.3.7/js/bootstrap.min.js'}"></script>
+    
     
   </body>
 </html>

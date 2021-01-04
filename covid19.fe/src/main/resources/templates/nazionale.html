@@ -4,41 +4,92 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>User Registration</title>
+<title>Nazionale</title>
 </head>
 <body>
 
-<div>
-<div layout:fragment="content">
-    <h3>Dati nazionali</h3>
+	<div>
+		<div layout:fragment="content">
+			<h3>Dati nazionali</h3>
 
-    <form th:action="@{/nazionale}" th:object="${nazionaleb}" method="get">
-    
-        <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('dataDa')}? 'has-error'">
-          <label>Data da</label>
-          <input type="text" th:field="*{dataDa}"/>
-          <p th:if="${#fields.hasErrors('dataDa')}" th:errors="*{dataDa}" th:class="text-red">Incorrect data</p>
-        </div>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('dataA')}? 'has-error'">
-          <label>Data a</label>
-          <input type="text" th:field="*{dataA}"/>
-          <p th:if="${#fields.hasErrors('dataA')}" th:errors="*{dataA}" th:class="text-red">Incorrect data</p>
-        </div>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('grafico')}? 'has-error'">
-          <label>Grafico</label>
-          <input type="password" th:field="*{grafico}"  placeholder="Enter password"/>
-          <p th:if="${#fields.hasErrors('grafico')}" th:errors="*{grafico}" th:class="text-red">Incorrect data</p>
-        </div>
-               
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-</div>
-</div>
+			<form th:action="@{/nazionale/grafico}" th:object="${nazionaleb}"
+				method="get">
+
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+					th:class="text-red">Incorrect data</p>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('dataDa')}? 'has-error'">
+					<label>Data da</label> <input type="date" th:field="*{dataDa}" />
+					<p th:if="${#fields.hasErrors('dataDa')}" th:errors="*{dataDa}"
+						th:class="text-red">Incorrect data</p>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('dataA')}? 'has-error'">
+					<label>Data a </label> <input type="date" th:field="*{dataA}" />
+					<p th:if="${#fields.hasErrors('dataA')}" th:errors="*{dataA}"
+						th:class="text-red">Incorrect data</p>
+				</div>
+
+				<div class="form-group">
+					<label>Grafico</label> <select class="form-control"
+						th:field="${nazionaleb.graficoSelezionato}" id="idGrafico">
+						<option value="0">Seleziona Grafico</option>
+						<option th:each="grafic : ${nazionaleb.grafici}"
+							th:value="${grafic}" th:text="${grafic}"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+			<canvas id="myChart" width="400" height="400"></canvas>
+			<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function () {
+	var ctx = document.getElementById('myChart');
+	var myChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+	        datasets: [{
+	            label: '# of Votes',
+	            data: [12, 19, 3, 5, 2, 3],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+});
+	/*]]>*/
+			</script>
+		</div>
+	</div>
 </body>
 </html>
