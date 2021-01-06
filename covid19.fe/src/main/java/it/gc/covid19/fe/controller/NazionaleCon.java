@@ -55,9 +55,22 @@ public class NazionaleCon {
 	public String nazionaleForm(Model model, @ModelAttribute("nazionaleb") @Valid NazionaleB nazionaleb,
 			BindingResult result) {
 		logger.info("nazionaleb: " + nazionaleb);
+		nazionaleb.setGrafici(grafici);
+		model.addAttribute("nazionaleb", nazionaleb);
 		nazionaleVal.validate(nazionaleb, result);
-		String url = "http://localhost:8081/nazionale/line/" + nazionaleb.getGraficoSelezionato();
-		String linechart = restTemplate.getForObject(url, String.class);
+		if(result.hasErrors()){
+			return "nazionale";
+		}
+		StringBuffer url = new StringBuffer("http://localhost:8081/nazionale/line/"+ nazionaleb.getGraficoSelezionato());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(nazionaleb.getDataDa() != null && nazionaleb.getDataA() == null) {
+			url.append("?dataDa=" + sdf.format(nazionaleb.getDataDa()));
+		} else if (nazionaleb.getDataDa() == null && nazionaleb.getDataA() != null) {
+			url.append("?dataA=" + sdf.format(nazionaleb.getDataA()));
+		} else if (nazionaleb.getDataDa() != null && nazionaleb.getDataA() != null) {
+			url.append("?dataDa=" + sdf.format(nazionaleb.getDataDa()) + "&dataA=" + sdf.format(nazionaleb.getDataA()));
+		}
+		String linechart = restTemplate.getForObject(url.toString(), String.class);
 		model.addAttribute("linechart", linechart);
 		model.addAttribute("nazionaleb", nazionaleb);
 		return "nazionale";

@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import be.ceau.chart.LineChart;
 import be.ceau.chart.color.Color;
 import be.ceau.chart.data.LineData;
@@ -32,8 +31,14 @@ public class NazionaleCSer {
 		LineDataset dataset = createLineDataset(nazionaleE);
 		Method method = NazionaleDoc.class.getMethod(nazionaleE.getMetodo());
 		for (NazionaleDoc nazionale : nazionali) {
-			data.addLabel(nazionale.getData());
-			dataset.addData(new BigDecimal(method.invoke(nazionale).toString()));
+			
+			Object ob = method.invoke(nazionale);
+			if(ob != null) {
+				BigDecimal value = new BigDecimal(ob.toString());
+				data.addLabel(nazionale.getData());
+				dataset.addData(value);	
+			} 
+			
 		}
 		data.addDataset(dataset);
 		chart.setData(data);

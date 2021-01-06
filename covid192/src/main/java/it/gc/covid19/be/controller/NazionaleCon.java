@@ -34,16 +34,22 @@ public class NazionaleCon {
 	private NazionaleCSer nazionaleCSer;
 
 	@GetMapping(value = "/line/{nazionaleE}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<LineChart> getLineChart(@PathVariable String nazionaleE, @RequestParam(required = false) String dataDa)
+	public ResponseEntity<LineChart> getLineChart(@PathVariable String nazionaleE,
+			@RequestParam(required = false) String dataDa, @RequestParam(required = false) String dataA)
 			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, IOException {
 		List<NazionaleDoc> nazionali = null;
-		if(StringUtils.hasText(dataDa)) {
-			nazionali = nazionaleMSer.getNazionaliDa(dataDa);	
-		} else {
-			nazionali = nazionaleMSer.getNazionali();	
-		}
 		
+		if (!StringUtils.hasText(dataDa) && !StringUtils.hasText(dataA)) {
+			nazionali = nazionaleMSer.getNazionali();
+		} else if (StringUtils.hasText(dataDa) && StringUtils.hasText(dataA)) {
+			nazionali = nazionaleMSer.getNazionali(dataDa, dataA);
+		} else if (StringUtils.hasText(dataDa)) {
+			nazionali = nazionaleMSer.getNazionaliDa(dataDa);
+		} else if (StringUtils.hasText(dataA)) {
+			nazionali = nazionaleMSer.getNazionaliA(dataA);
+		}
+
 		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.valueOf(nazionaleE));
 		logger.info("chart json: " + chart.toJson());
 
