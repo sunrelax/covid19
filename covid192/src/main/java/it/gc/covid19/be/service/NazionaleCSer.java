@@ -23,22 +23,59 @@ import it.gc.covid19.be.util.NazionaleE;
 @Service
 public class NazionaleCSer {
 
+	public LineChart getLineChart(List<NazionaleDoc> nazionali, List<NazionaleE> nazionaliE)
+			throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		LineChart chart = new LineChart();
+		LineData data = new LineData();
+		int i = 1;
+		for (NazionaleE nazionaleE : nazionaliE) {
+
+			LineDataset dataset = createLineDataset(nazionaleE, Color.random());
+			Method method = NazionaleDoc.class.getMethod(nazionaleE.getMetodo());
+			for (NazionaleDoc nazionale : nazionali) {
+
+				Object ob = method.invoke(nazionale);
+				if (ob != null) {
+					BigDecimal value = new BigDecimal(ob.toString());
+					if(i == 1) { 
+						data.addLabel(nazionale.getData());
+					}
+					dataset.addData(value);
+				}
+				
+			}
+			data.addDataset(dataset);
+			i++;
+		}
+		chart.setData(data);
+		LineOptions options = new LineOptions();
+		LinearScales linearScales = new LinearScales();
+		LinearScale linearScale = new LinearScale();
+		linearScale.setStacked(false);
+		linearScales.addyAxis(linearScale);
+		options.setScales(linearScales);
+		chart.setOptions(options);
+
+		return chart;
+	}
+
 	public LineChart getLineChart(List<NazionaleDoc> nazionali, NazionaleE nazionaleE)
 			throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 		LineChart chart = new LineChart();
 		LineData data = new LineData();
-		LineDataset dataset = createLineDataset(nazionaleE);
+		LineDataset dataset = createLineDataset(nazionaleE, new Color(75, 192, 192, 1));
 		Method method = NazionaleDoc.class.getMethod(nazionaleE.getMetodo());
 		for (NazionaleDoc nazionale : nazionali) {
-			
+
 			Object ob = method.invoke(nazionale);
-			if(ob != null) {
+			if (ob != null) {
 				BigDecimal value = new BigDecimal(ob.toString());
 				data.addLabel(nazionale.getData());
-				dataset.addData(value);	
-			} 
-			
+				dataset.addData(value);
+			}
+
 		}
 		data.addDataset(dataset);
 		chart.setData(data);
@@ -53,9 +90,9 @@ public class NazionaleCSer {
 		return chart;
 	}
 
-	private LineDataset createLineDataset(NazionaleE nazionaleE) {
+	private LineDataset createLineDataset(NazionaleE nazionaleE, Color color) {
 		return new LineDataset().setLabel(nazionaleE.name()).setFill(new Fill<Boolean>(true)).setLineTension(0.1f)
-				.setBackgroundColor(new Color(75, 192, 192, 0.4)).setBorderColor(new Color(75, 192, 192, 1))
+				.setBackgroundColor(new Color(75, 192, 192, 0.4)).setBorderColor(color)
 				.setBorderCapStyle(BorderCapStyle.BUTT).setBorderDashOffset(0.0f)
 				.setBorderJoinStyle(BorderJoinStyle.MITER).addPointBorderColor(new Color(75, 192, 192, 1))
 				.addPointBackgroundColor(new Color(255, 255, 255, 1)).addPointBorderWidth(1).addPointHoverRadius(5)

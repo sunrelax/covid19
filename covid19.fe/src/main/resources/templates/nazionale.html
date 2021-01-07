@@ -18,9 +18,9 @@
 				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
 					th:class="text-red">Incorrect data</p>
 				<div class="form-group">
+					<label>Seleziona uno o piu' dati da visualizzare *</label>
 					<select class="form-control" th:field="*{graficoSelezionato}"
-						id="idGrafico">
-						<option value="0">Seleziona Grafico *</option>
+						id="idGrafico" multiple="multiple" size="2">
 						<option th:each="grafic : ${nazionaleb.grafici}"
 							th:value="${grafic}" th:text="${grafic}"></option>
 					</select>
@@ -41,9 +41,6 @@
 					<p th:if="${#fields.hasErrors('dataA')}" th:errors="*{dataA}"
 						th:class="text-red">Incorrect data</p>
 				</div>
-
-
-
 				<div class="form-group">
 					<input id="chartoptions" type="hidden" th:value="${linechart}" />
 					<button type="submit" class="btn btn-primary">Visualizza</button>

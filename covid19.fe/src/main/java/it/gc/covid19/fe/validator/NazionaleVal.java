@@ -21,11 +21,12 @@ public class NazionaleVal implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		NazionaleB nazionaleb = (NazionaleB) target;
-		if(nazionaleb.getGraficoSelezionato().equals("0")) {
+		if (nazionaleb.getGraficoSelezionato() == null) {
 			errors.rejectValue("graficoSelezionato", "obbligatorio");
 		}
-//		if (nazionaleb.getDataDa().after(nazionaleb.getDataA())) {
-//			errors.rejectValue("dataDa", "dataDa.superiore");
-//		}
+		if (nazionaleb.getDataDa() != null && nazionaleb.getDataA() != null
+				&& nazionaleb.getDataDa().after(nazionaleb.getDataA())) {
+			errors.rejectValue("dataDa", "dataDa.superiore");
+		}
 	}
 }

@@ -2,7 +2,9 @@ package it.gc.covid19.be.controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,7 @@ public class NazionaleCon {
 			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, IOException {
 		List<NazionaleDoc> nazionali = null;
-		
+
 		if (!StringUtils.hasText(dataDa) && !StringUtils.hasText(dataA)) {
 			nazionali = nazionaleMSer.getNazionali();
 		} else if (StringUtils.hasText(dataDa) && StringUtils.hasText(dataA)) {
@@ -50,7 +52,10 @@ public class NazionaleCon {
 			nazionali = nazionaleMSer.getNazionaliA(dataA);
 		}
 
-		LineChart chart = nazionaleCSer.getLineChart(nazionali, NazionaleE.valueOf(nazionaleE));
+		List<NazionaleE> nazionaliE = Arrays.asList(nazionaleE.split(",")).stream().map(NazionaleE::valueOf)
+				.collect(Collectors.toList());
+
+		LineChart chart = nazionaleCSer.getLineChart(nazionali, nazionaliE);
 		logger.info("chart json: " + chart.toJson());
 
 		return ResponseEntity.ok(chart);

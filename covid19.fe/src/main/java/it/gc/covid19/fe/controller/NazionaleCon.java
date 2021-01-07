@@ -1,6 +1,7 @@
 package it.gc.covid19.fe.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -52,27 +53,33 @@ public class NazionaleCon {
 	}
 
 	@RequestMapping(value = "/nazionale/grafico", method = RequestMethod.GET)
-	public String nazionaleForm(Model model, @ModelAttribute("nazionaleb") @Valid NazionaleB nazionaleb,
+	public String nazionaleForm(Model model, @ModelAttribute("nazionaleb") NazionaleB nazionaleb,
 			BindingResult result) {
 		logger.info("nazionaleb: " + nazionaleb);
 		nazionaleb.setGrafici(grafici);
 		model.addAttribute("nazionaleb", nazionaleb);
 		nazionaleVal.validate(nazionaleb, result);
-		if(result.hasErrors()){
+		if (result.hasErrors()) {
 			return "nazionale";
 		}
-		StringBuffer url = new StringBuffer("http://localhost:8081/nazionale/line/"+ nazionaleb.getGraficoSelezionato());
+		StringBuffer url = new StringBuffer(
+				"http://localhost:8081/nazionale/line/" + nazionaleb.getGraficoSelezionato());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		if(nazionaleb.getDataDa() != null && nazionaleb.getDataA() == null) {
+		if (nazionaleb.getDataDa() != null && nazionaleb.getDataA() == null) {
 			url.append("?dataDa=" + sdf.format(nazionaleb.getDataDa()));
 		} else if (nazionaleb.getDataDa() == null && nazionaleb.getDataA() != null) {
-			url.append("?dataA=" + sdf.format(nazionaleb.getDataA()));
+			Calendar c = Calendar.getInstance();
+			c.setTime(nazionaleb.getDataA());
+			c.add(Calendar.DATE, 1);
+			url.append("?dataA=" + sdf.format(c.getTime()));
 		} else if (nazionaleb.getDataDa() != null && nazionaleb.getDataA() != null) {
-			url.append("?dataDa=" + sdf.format(nazionaleb.getDataDa()) + "&dataA=" + sdf.format(nazionaleb.getDataA()));
+			Calendar c = Calendar.getInstance();
+			c.setTime(nazionaleb.getDataA());
+			c.add(Calendar.DATE, 1);
+			url.append("?dataDa=" + sdf.format(nazionaleb.getDataDa()) + "&dataA=" + sdf.format(c.getTime()));
 		}
 		String linechart = restTemplate.getForObject(url.toString(), String.class);
 		model.addAttribute("linechart", linechart);
-		model.addAttribute("nazionaleb", nazionaleb);
 		return "nazionale";
 	}
 
