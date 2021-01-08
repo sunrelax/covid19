@@ -10,18 +10,15 @@
 
 	<div>
 		<div layout:fragment="content">
-			<h4>Andamento nazionale</h4>
-
 			<form th:action="@{/nazionale/grafico}" th:object="${nazionaleb}"
 				method="get">
 
 				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
 					th:class="text-danger">Incorrect data</p>
 				<div class="form-group">
-					<label>Seleziona uno o piu' dati da visualizzare
-						dell'andamento nazionale *</label> <select class="form-control"
-						th:field="*{graficiSelezionati}" id="idGrafici" name="idGrafici"
-						multiple="multiple" size="2">
+					<label>Seleziona i dati dell'andamento nazionale *</label> <select
+						class="form-control" th:field="*{graficiSelezionati}"
+						id="idGrafici" name="idGrafici" multiple="multiple" size="2">
 						<option th:each="grafic : ${nazionaleb.grafici}"
 							th:value="${grafic}" th:text="${grafic}"></option>
 					</select>
