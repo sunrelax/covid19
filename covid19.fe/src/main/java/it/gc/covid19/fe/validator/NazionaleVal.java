@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.thymeleaf.util.ListUtils;
 
 import it.gc.covid19.fe.bean.NazionaleB;
 
@@ -21,8 +22,8 @@ public class NazionaleVal implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		NazionaleB nazionaleb = (NazionaleB) target;
-		if (nazionaleb.getGraficoSelezionato() == null) {
-			errors.rejectValue("graficoSelezionato", "obbligatorio");
+		if (ListUtils.isEmpty(nazionaleb.getGraficiSelezionati())) {
+			errors.rejectValue("graficiSelezionati", "obbligatorio");
 		}
 		if (nazionaleb.getDataDa() != null && nazionaleb.getDataA() != null
 				&& nazionaleb.getDataDa().after(nazionaleb.getDataA())) {

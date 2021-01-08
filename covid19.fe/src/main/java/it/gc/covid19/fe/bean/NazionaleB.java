@@ -20,5 +20,5 @@ public class NazionaleB extends RicercaB {
 	public List<String> grafici;
 
 	@NotNull
-	public String graficoSelezionato;
+	public List<String> graficiSelezionati;
 }

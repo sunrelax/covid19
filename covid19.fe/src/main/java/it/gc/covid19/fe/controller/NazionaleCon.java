@@ -62,8 +62,9 @@ public class NazionaleCon {
 		if (result.hasErrors()) {
 			return "nazionale";
 		}
+		String graficiSel = String.join(",", nazionaleb.getGraficiSelezionati());
 		StringBuffer url = new StringBuffer(
-				"http://localhost:8081/nazionale/line/" + nazionaleb.getGraficoSelezionato());
+				"http://localhost:8081/nazionale/line/" + graficiSel);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		if (nazionaleb.getDataDa() != null && nazionaleb.getDataA() == null) {
 			url.append("?dataDa=" + sdf.format(nazionaleb.getDataDa()));

@@ -10,36 +10,37 @@
 
 	<div>
 		<div layout:fragment="content">
-			<h3>Dati nazionali</h3>
+			<h4>Andamento nazionale</h4>
 
 			<form th:action="@{/nazionale/grafico}" th:object="${nazionaleb}"
 				method="get">
 
 				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
-					th:class="text-red">Incorrect data</p>
+					th:class="text-danger">Incorrect data</p>
 				<div class="form-group">
-					<label>Seleziona uno o piu' dati da visualizzare *</label>
-					<select class="form-control" th:field="*{graficoSelezionato}"
-						id="idGrafico" multiple="multiple" size="2">
+					<label>Seleziona uno o piu' dati da visualizzare
+						dell'andamento nazionale *</label> <select class="form-control"
+						th:field="*{graficiSelezionati}" id="idGrafici" name="idGrafici"
+						multiple="multiple" size="2">
 						<option th:each="grafic : ${nazionaleb.grafici}"
 							th:value="${grafic}" th:text="${grafic}"></option>
 					</select>
-					<p th:if="${#fields.hasErrors('graficoSelezionato')}"
-						th:errors="*{graficoSelezionato}" th:class="text-red">Incorrect
+					<p th:if="${#fields.hasErrors('graficiSelezionati')}"
+						th:errors="*{graficiSelezionati}" th:class="text-danger">Incorrect
 						data</p>
 				</div>
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('dataDa')}? 'has-error'">
 					<label>Data da</label> <input type="date" th:field="*{dataDa}" />
 					<p th:if="${#fields.hasErrors('dataDa')}" th:errors="*{dataDa}"
-						th:class="text-red">Incorrect data</p>
+						th:class="text-danger">Incorrect data</p>
 				</div>
 
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('dataA')}? 'has-error'">
 					<label>Data a </label> <input type="date" th:field="*{dataA}" />
 					<p th:if="${#fields.hasErrors('dataA')}" th:errors="*{dataA}"
-						th:class="text-red">Incorrect data</p>
+						th:class="text-danger">Incorrect data</p>
 				</div>
 				<div class="form-group">
 					<input id="chartoptions" type="hidden" th:value="${linechart}" />
@@ -53,6 +54,9 @@ $(document).ready(function () {
 	var ctx = document.getElementById('myChart');
 	var chartoptions = $("#chartoptions").val(); 	
 	var myChart = new Chart(ctx, JSON.parse(chartoptions));
+});
+$('[type="date"]').prop('max', function(){
+    return new Date().toJSON().split('T')[0];
 });
 	/*]]>*/
 			</script>
