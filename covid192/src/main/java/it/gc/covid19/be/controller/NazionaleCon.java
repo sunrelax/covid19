@@ -22,7 +22,7 @@ import be.ceau.chart.LineChart;
 import it.gc.covid19.be.document.NazionaleDoc;
 import it.gc.covid19.be.service.NazionaleCSer;
 import it.gc.covid19.be.service.NazionaleMSer;
-import it.gc.covid19.be.util.NazionaleE;
+import it.gc.covid19.be.util.DatiE;
 
 @RestController
 @RequestMapping("/nazionale")
@@ -52,10 +52,10 @@ public class NazionaleCon {
 			nazionali = nazionaleMSer.getNazionaliA(dataA);
 		}
 
-		List<NazionaleE> nazionaliE = Arrays.asList(nazionaleE.split(",")).stream().map(NazionaleE::valueOf)
+		List<DatiE> datiE = Arrays.asList(nazionaleE.split(",")).stream().map(DatiE::valueOf)
 				.collect(Collectors.toList());
 
-		LineChart chart = nazionaleCSer.getLineChart(nazionali, nazionaliE);
+		LineChart chart = nazionaleCSer.getLineChart(nazionali, datiE);
 		logger.info("chart json: " + chart.toJson());
 
 		return ResponseEntity.ok(chart);

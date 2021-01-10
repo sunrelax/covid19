@@ -1,6 +1,6 @@
 package it.gc.covid19.be.util;
 
-public enum NazionaleE {
+public enum DatiE {
 	ricoverati_con_sintomi("getRicoverati_con_sintomi"), terapia_intensiva("getTerapia_intensiva"),
 	totale_ospedalizzati("getTotale_ospedalizzati"), isolamento_domiciliare("getIsolamento_domiciliare"),
 	totale_positivi("getTotale_positivi"), variazione_totale_positivi("getVariazione_totale_positivi"),
@@ -11,7 +11,7 @@ public enum NazionaleE {
 
 	private String metodo;
 
-	private NazionaleE(String metodo) {
+	private DatiE(String metodo) {
 		this.metodo = metodo;
 	}
 

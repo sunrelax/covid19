@@ -30,8 +30,6 @@ public class NazionaleCon {
 
 	Logger logger = LoggerFactory.getLogger(NazionaleCon.class);
 
-//	@Value("#{${line}}")
-//	public String line;
 	@Value("#{${grafici}}")
 	public List<String> grafici;
 	@Autowired

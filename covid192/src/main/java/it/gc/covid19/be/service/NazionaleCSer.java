@@ -18,18 +18,18 @@ import be.ceau.chart.options.elements.Fill;
 import be.ceau.chart.options.scales.LinearScale;
 import be.ceau.chart.options.scales.LinearScales;
 import it.gc.covid19.be.document.NazionaleDoc;
-import it.gc.covid19.be.util.NazionaleE;
+import it.gc.covid19.be.util.DatiE;
 
 @Service
 public class NazionaleCSer {
 
-	public LineChart getLineChart(List<NazionaleDoc> nazionali, List<NazionaleE> nazionaliE)
+	public LineChart getLineChart(List<NazionaleDoc> nazionali, List<DatiE> nazionaliE)
 			throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 		LineChart chart = new LineChart();
 		LineData data = new LineData();
 		int i = 1;
-		for (NazionaleE nazionaleE : nazionaliE) {
+		for (DatiE nazionaleE : nazionaliE) {
 
 			LineDataset dataset = createLineDataset(nazionaleE, Color.random());
 			Method method = NazionaleDoc.class.getMethod(nazionaleE.getMetodo());
@@ -60,7 +60,7 @@ public class NazionaleCSer {
 		return chart;
 	}
 
-	public LineChart getLineChart(List<NazionaleDoc> nazionali, NazionaleE nazionaleE)
+	public LineChart getLineChart(List<NazionaleDoc> nazionali, DatiE nazionaleE)
 			throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 		LineChart chart = new LineChart();
@@ -90,7 +90,7 @@ public class NazionaleCSer {
 		return chart;
 	}
 
-	private LineDataset createLineDataset(NazionaleE nazionaleE, Color color) {
+	private LineDataset createLineDataset(DatiE nazionaleE, Color color) {
 		return new LineDataset().setLabel(nazionaleE.name()).setFill(new Fill<Boolean>(true)).setLineTension(0.1f)
 				.setBackgroundColor(new Color(75, 192, 192, 0.4)).setBorderColor(color)
 				.setBorderCapStyle(BorderCapStyle.BUTT).setBorderDashOffset(0.0f)

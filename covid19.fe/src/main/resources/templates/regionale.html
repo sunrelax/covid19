@@ -4,41 +4,71 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>User Registration</title>
+<title>Regionale</title>
 </head>
 <body>
 
-<div>
-<div layout:fragment="content">
-    <h3>User Registration Form</h3>
+	<div>
+		<div layout:fragment="content">
+			<form th:action="@{/regionale/grafico}" th:object="${regionaleb}"
+				method="get">
 
-    <form th:action="@{/regionale}" th:object="${user}" method="post">
-    
-        <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
-          <label>Name</label>
-          <input type="text" th:field="*{name}"/>
-          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-red">Incorrect data</p>
-        </div>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
-          <label>Email</label>
-          <input type="text" th:field="*{email}"/>
-          <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="text-red">Incorrect data</p>
-        </div>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
-          <label>Password</label>
-          <input type="password" th:field="*{password}"  placeholder="Enter password"/>
-          <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="text-red">Incorrect data</p>
-        </div>
-               
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-</div>
-</div>
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+					th:class="text-danger">Incorrect data</p>
+				<div class="form-group">
+					<label>Seleziona i dati dell'andamento regionale *</label> <select
+						class="form-control" th:field="*{graficiSelezionati}"
+						id="idGrafici" name="idGrafici" multiple="multiple" size="2">
+						<option th:each="grafic : ${regionaleb.grafici}"
+							th:value="${grafic}" th:text="${grafic}"></option>
+					</select>
+					<p th:if="${#fields.hasErrors('graficiSelezionati')}"
+						th:errors="*{graficiSelezionati}" th:class="text-danger">Incorrect
+						data</p>
+				</div>
+				<div class="form-group">
+					<label>Regioni *</label> <select
+						class="form-control" th:field="*{regioniSelezionate}"
+						id="idRegioni" name="idRegioni" multiple="multiple" size="2">
+						<option th:each="region : ${regionaleb.regioni}"
+							th:value="${region}" th:text="${region}"></option>
+					</select>
+					<p th:if="${#fields.hasErrors('regioniSelezionate')}"
+						th:errors="*{regioniSelezionate}" th:class="text-danger">Incorrect
+						data</p>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('dataDa')}? 'has-error'">
+					<label>Data da</label> <input type="date" th:field="*{dataDa}" />
+					<p th:if="${#fields.hasErrors('dataDa')}" th:errors="*{dataDa}"
+						th:class="text-danger">Incorrect data</p>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('dataA')}? 'has-error'">
+					<label>Data a </label> <input type="date" th:field="*{dataA}" />
+					<p th:if="${#fields.hasErrors('dataA')}" th:errors="*{dataA}"
+						th:class="text-danger">Incorrect data</p>
+				</div>
+				<div class="form-group">
+					<input id="chartoptions" type="hidden" th:value="${linechart}" />
+					<button type="submit" class="btn btn-primary">Visualizza</button>
+				</div>
+			</form>
+			<canvas id="myChart" width="400" height="400"></canvas>
+			<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function () {
+	var ctx = document.getElementById('myChart');
+	var chartoptions = $("#chartoptions").val(); 	
+	var myChart = new Chart(ctx, JSON.parse(chartoptions));
+});
+$('[type="date"]').prop('max', function(){
+    return new Date().toJSON().split('T')[0];
+});
+	/*]]>*/
+			</script>
+		</div>
+	</div>
 </body>
 </html>

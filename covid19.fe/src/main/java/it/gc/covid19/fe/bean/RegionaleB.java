@@ -1,11 +1,8 @@
 package it.gc.covid19.fe.bean;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,17 +15,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RicercaB {
+public class RegionaleB extends RicercaB {
 
-	public List<String> grafici;
+	public List<ComboB> regioni;
 
 	@NotNull
-	public List<String> graficiSelezionati;
-
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	public Date dataDa;
-
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	public Date dataA;
-
+	public List<String> regioniSelezionate;
 }
