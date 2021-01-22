@@ -1,5 +1,6 @@
 package it.gc.covid19.be;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -71,5 +72,16 @@ class MongoServTests {
 			logger.info(regione.toString());
 		}
 	}
+	
+	@Test
+	public void findAllRegioni2() {
+		List<Integer> cR = new ArrayList<Integer>();
+		cR.add(13);
+		List<RegioneDoc> regioni = regioneMSer.getRegioni(cR);
+		for (RegioneDoc regione : regioni) {
+			logger.info(regione.toString());
+		}
+	}
 
+	
 }

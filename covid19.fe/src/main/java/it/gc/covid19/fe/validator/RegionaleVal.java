@@ -13,17 +13,20 @@ public class RegionaleVal implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return NazionaleB.class.isAssignableFrom(clazz);
+		return RegionaleB.class.isAssignableFrom(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		RegionaleB regionaleB = (RegionaleB) target;
-		if (ListUtils.isEmpty(regionaleB.getGraficiSelezionati())) {
+		RegionaleB regionaleb = (RegionaleB) target;
+		if (ListUtils.isEmpty(regionaleb.getGraficiSelezionati())) {
 			errors.rejectValue("graficiSelezionati", "obbligatorio");
 		}
-		if (regionaleB.getDataDa() != null && regionaleB.getDataA() != null
-				&& regionaleB.getDataDa().after(regionaleB.getDataA())) {
+		if (ListUtils.isEmpty(regionaleb.getRegioniSelezionate())) {
+			errors.rejectValue("regioniSelezionate", "obbligatorio");
+		}
+		if (regionaleb.getDataDa() != null && regionaleb.getDataA() != null
+				&& regionaleb.getDataDa().after(regionaleb.getDataA())) {
 			errors.rejectValue("dataDa", "dataDa.superiore");
 		}
 	}

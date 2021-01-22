@@ -51,7 +51,6 @@ public class Application {
 		er.add(abruzzo);
 		er.add(basilicata);
 		er.add(calabria);
-		er.add(abruzzo);
 		er.add(campania);
 		er.add(emiliaRomagna);
 		er.add(friuliVeneziaGiulia);

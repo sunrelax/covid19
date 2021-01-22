@@ -46,39 +46,40 @@ public class RegionaleCon {
 
 	@RequestMapping(value = "/regionale", method = RequestMethod.GET)
 	public String regionaleForm(Model model) {
-		RegionaleB regionaleB = new RegionaleB();
-		regionaleB.setGrafici(grafici);
-		regionaleB.setRegioni(regioni);
-		model.addAttribute("regionaleb", regionaleB);
+		RegionaleB regionaleb = new RegionaleB();
+		regionaleb.setGrafici(grafici);
+		regionaleb.setRegioni(regioni);
+		model.addAttribute("regionaleb", regionaleb);
 		return "regionale";
 	}
 
 	@RequestMapping(value = "/regionale/grafico", method = RequestMethod.GET)
-	public String regionaleForm(Model model, @ModelAttribute("RegionaleB") RegionaleB regionaleB,
+	public String regionaleForm(Model model, @ModelAttribute("regionaleb") RegionaleB regionaleb,
 			BindingResult result) {
-		logger.info("RegionaleB: " + regionaleB);
-		regionaleB.setGrafici(grafici);
-		model.addAttribute("regionaleb", regionaleB);
-		regionaleVal.validate(regionaleB, result);
+		logger.info("regionaleb: " + regionaleb);
+		regionaleb.setGrafici(grafici);
+		regionaleb.setRegioni(regioni);
+		model.addAttribute("regionaleb", regionaleb);
+		regionaleVal.validate(regionaleb, result);
 		if (result.hasErrors()) {
 			return "regionale";
 		}
-		String graficiSel = String.join(",", regionaleB.getGraficiSelezionati());
-		String regioniSel = String.join(",", regionaleB.getRegioniSelezionate());
+		String graficiSel = String.join(",", regionaleb.getGraficiSelezionati());
+		String regioniSel = String.join(",", regionaleb.getRegioniSelezionate());
 		StringBuffer url = new StringBuffer("http://localhost:8081/regionale/line/" + regioniSel + "/" + graficiSel);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		if (regionaleB.getDataDa() != null && regionaleB.getDataA() == null) {
-			url.append("?dataDa=" + sdf.format(regionaleB.getDataDa()));
-		} else if (regionaleB.getDataDa() == null && regionaleB.getDataA() != null) {
+		if (regionaleb.getDataDa() != null && regionaleb.getDataA() == null) {
+			url.append("?dataDa=" + sdf.format(regionaleb.getDataDa()));
+		} else if (regionaleb.getDataDa() == null && regionaleb.getDataA() != null) {
 			Calendar c = Calendar.getInstance();
-			c.setTime(regionaleB.getDataA());
+			c.setTime(regionaleb.getDataA());
 			c.add(Calendar.DATE, 1);
 			url.append("?dataA=" + sdf.format(c.getTime()));
-		} else if (regionaleB.getDataDa() != null && regionaleB.getDataA() != null) {
+		} else if (regionaleb.getDataDa() != null && regionaleb.getDataA() != null) {
 			Calendar c = Calendar.getInstance();
-			c.setTime(regionaleB.getDataA());
+			c.setTime(regionaleb.getDataA());
 			c.add(Calendar.DATE, 1);
-			url.append("?dataDa=" + sdf.format(regionaleB.getDataDa()) + "&dataA=" + sdf.format(c.getTime()));
+			url.append("?dataDa=" + sdf.format(regionaleb.getDataDa()) + "&dataA=" + sdf.format(c.getTime()));
 		}
 		String linechart = restTemplate.getForObject(url.toString(), String.class);
 		model.addAttribute("linechart", linechart);

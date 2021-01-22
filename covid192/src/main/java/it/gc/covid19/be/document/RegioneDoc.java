@@ -23,7 +23,8 @@ public class RegioneDoc {
 	private String id;
 	private String data;
 	private String stato;
-	private String codice_regione;
+	@Field(value = "codice_regione")
+	private String codiceRegione;
 	private String denominazione_regione;
 	private String lat;
 	@Field(value = "long")
