@@ -26,8 +26,10 @@ public class ProvinciaDoc {
 	private String stato;
 	private String codice_regione;
 	private String denominazione_regione;
-	private String codice_provincia;
-	private String denominazione_provincia;
+	@Field(value = "codice_provincia")	
+	private String codiceProvincia;
+	@Field(value = "denominazione_provincia")
+	private String denominazioneProvincia;
 	private String lat;
 	@Field(value = "long")
 	private String longitudine;

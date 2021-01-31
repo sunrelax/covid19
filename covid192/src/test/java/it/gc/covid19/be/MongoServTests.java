@@ -1,8 +1,13 @@
 package it.gc.covid19.be;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,9 +65,30 @@ class MongoServTests {
 	@Test
 	public void findAllProvince() {
 		List<ProvinciaDoc> province = provinciaMSer.getProvince();
+		TreeMap<String, String> elencoProvince = new TreeMap<String, String>();
 		for (ProvinciaDoc provincia : province) {
-			logger.info(provincia.toString());
+			//elencoProvince.put(provincia.getCodice_provincia(), provincia.getDenominazioneProvincia());
+			elencoProvince.put(provincia.getDenominazioneProvincia(), provincia.getCodiceProvincia());
 		}
+		Set<Entry<String, String>> setEntry = elencoProvince.entrySet();
+		for(Entry<String, String> prov: setEntry) {
+//			logger.info("ComboB " + StringUtils.lowerCase(prov.getKey()) + " = new ComboB(\"" + prov.getValue()
+//					+ "\", \"" + prov.getKey() + "\");");
+//			logger.info("ep.add(" + StringUtils.lowerCase(prov.getKey()) + ");");
+//			Abruzzo(13, "Abruzzo")
+			logger.info(prov.getKey() + "(" + prov.getValue() + ", \"" + prov.getKey() + "\"), ");
+		}
+		logger.info(elencoProvince.toString());
+		
+//		for (Integer i = 1; i < 150; i++) {
+//			logger.info("ComboB " + StringUtils.lowerCase(elencoProvince.get(i.toString())) + " = new ComboB(\"" + i
+//					+ "\", \"" + elencoProvince.get(i.toString()) + "\");");
+//			logger.info("ep.add(" + StringUtils.lowerCase(elencoProvince.get(i.toString())) + ");");
+//
+//		}
+//		elencoProvince.entrySet().forEach(entry -> {
+//			logger.info(entry.getKey() + " " + entry.getValue());
+//		});
 	}
 
 	@Test
@@ -72,7 +98,7 @@ class MongoServTests {
 			logger.info(regione.toString());
 		}
 	}
-	
+
 	@Test
 	public void findAllRegioni2() {
 		List<Integer> cR = new ArrayList<Integer>();
@@ -83,5 +109,5 @@ class MongoServTests {
 		}
 	}
 
-	
+
 }

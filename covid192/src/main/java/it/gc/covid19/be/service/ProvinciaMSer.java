@@ -20,25 +20,34 @@ public class ProvinciaMSer {
 		return mongoTemplate.findAll(ProvinciaDoc.class, "province");
 	}
 
-	public List<ProvinciaDoc> getProvinceDa(String dataDa) {
+	public List<ProvinciaDoc> getProvince(List<Integer> codiciProvince) {
 		Query query = new Query();
+		query.addCriteria(Criteria.where("codice_provincia").in(codiciProvince));
+		List<ProvinciaDoc> province = mongoTemplate.find(query, ProvinciaDoc.class);
+		return province;
+	}
+
+	public List<ProvinciaDoc> getProvinceDa(List<Integer> codiciProvince, String dataDa) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("codice_provincia").in(codiciProvince));
 		query.addCriteria(Criteria.where("data").gte(dataDa));
 		List<ProvinciaDoc> province = mongoTemplate.find(query, ProvinciaDoc.class);
 		return province;
 	}
 
-	public List<ProvinciaDoc> getProvinceA(String dataA) {
+	public List<ProvinciaDoc> getProvinceA(List<Integer> codiciProvince, String dataA) {
 		Query query = new Query();
+		query.addCriteria(Criteria.where("codice_provincia").in(codiciProvince));
 		query.addCriteria(Criteria.where("data").lte(dataA));
 		List<ProvinciaDoc> province = mongoTemplate.find(query, ProvinciaDoc.class);
 		return province;
 	}
 
-	public List<ProvinciaDoc> getProvince(String dataDa, String dataA) {
+	public List<ProvinciaDoc> getProvince(List<Integer> codiciProvince, String dataDa, String dataA) {
 		Query query = new Query();
+		query.addCriteria(Criteria.where("codice_provincia").in(codiciProvince));
 		query.addCriteria(Criteria.where("data").gte(dataDa).lte(dataA));
 		List<ProvinciaDoc> province = mongoTemplate.find(query, ProvinciaDoc.class);
 		return province;
 	}
-
 }

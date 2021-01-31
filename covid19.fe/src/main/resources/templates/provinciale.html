@@ -4,41 +4,75 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<title>User Registration</title>
+<title>Provinciale</title>
 </head>
 <body>
 
-<div>
-<div layout:fragment="content">
-    <h3>User Registration Form</h3>
-
-    <form th:action="@{/provinciale}" th:object="${user}" method="post">
-    
-        <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
-          <label>Name</label>
-          <input type="text" th:field="*{name}"/>
-          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-red">Incorrect data</p>
-        </div>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
-          <label>Email</label>
-          <input type="text" th:field="*{email}"/>
-          <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="text-red">Incorrect data</p>
-        </div>
-        
-        <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
-          <label>Password</label>
-          <input type="password" th:field="*{password}"  placeholder="Enter password"/>
-          <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="text-red">Incorrect data</p>
-        </div>
-               
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-</div>
-</div>
+	<div>
+		<div layout:fragment="content">
+			<form th:action="@{/provinciale/grafico}" th:object="${provincialeb}"
+				method="get">
+				<p></p>
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+					th:class="text-danger">Incorrect data</p>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label>Casi totali provinciali *</label> <select
+									class="form-control" th:field="*{provinceSelezionate}"
+									id="idProvince" name="idProvince" multiple="multiple" size="2">
+									<option th:each="prov : ${provincialeb.province}"
+										th:value="${prov.chiave}" th:text="${prov.valore}"></option>
+								</select>
+								<p th:if="${#fields.hasErrors('provinceSelezionate')}"
+									th:errors="*{provinceSelezionate}" th:class="text-danger">Incorrect
+									data</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('dataDa')}? 'has-error'">
+								<label>Data da</label> <input type="date" th:field="*{dataDa}" />
+								<p th:if="${#fields.hasErrors('dataDa')}" th:errors="*{dataDa}"
+									th:class="text-danger">Incorrect data</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('dataA')}? 'has-error'">
+								<label>Data a </label> <input type="date" th:field="*{dataA}" />
+								<p th:if="${#fields.hasErrors('dataA')}" th:errors="*{dataA}"
+									th:class="text-danger">Incorrect data</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group text-center">
+								<input id="chartoptions" type="hidden" th:value="${linechart}" />
+								<button type="submit" class="btn btn-primary">Visualizza</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<canvas id="myChart" width="400" height="400"></canvas>
+			<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function () {
+	var ctx = document.getElementById('myChart');
+	var chartoptions = $("#chartoptions").val(); 	
+	var myChart = new Chart(ctx, JSON.parse(chartoptions));
+});
+$('[type="date"]').prop('max', function(){
+    return new Date().toJSON().split('T')[0];
+});
+	/*]]>*/
+			</script>
+		</div>
+	</div>
 </body>
 </html>
