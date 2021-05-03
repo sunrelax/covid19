@@ -21,9 +21,12 @@ public class ProvincialeVal implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ProvincialeB nazionaleb = (ProvincialeB) target;
-		if (nazionaleb.getDataDa() != null && nazionaleb.getDataA() != null
-				&& nazionaleb.getDataDa().after(nazionaleb.getDataA())) {
+		ProvincialeB provincialeb = (ProvincialeB) target;
+		if (ListUtils.isEmpty(provincialeb.getProvinceSelezionate())) {
+			errors.rejectValue("provinceSelezionate", "obbligatorio");
+		}
+		if (provincialeb.getDataDa() != null && provincialeb.getDataA() != null
+				&& provincialeb.getDataDa().after(provincialeb.getDataA())) {
 			errors.rejectValue("dataDa", "dataDa.superiore");
 		}
 	}
