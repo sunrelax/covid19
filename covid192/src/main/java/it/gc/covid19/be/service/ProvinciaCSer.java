@@ -2,11 +2,11 @@ package it.gc.covid19.be.service;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
 import be.ceau.chart.LineChart;
 import be.ceau.chart.color.Color;
 import be.ceau.chart.data.LineData;
@@ -18,8 +18,6 @@ import be.ceau.chart.options.elements.Fill;
 import be.ceau.chart.options.scales.LinearScale;
 import be.ceau.chart.options.scales.LinearScales;
 import it.gc.covid19.be.document.ProvinciaDoc;
-import it.gc.covid19.be.document.RegioneDoc;
-import it.gc.covid19.be.util.DatiE;
 import it.gc.covid19.be.util.ProvinceE;
 
 @Service

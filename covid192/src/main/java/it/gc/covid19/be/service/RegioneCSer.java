@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import be.ceau.chart.LineChart;

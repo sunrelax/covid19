@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
 import be.ceau.chart.LineChart;
 import be.ceau.chart.color.Color;
 import be.ceau.chart.data.LineData;

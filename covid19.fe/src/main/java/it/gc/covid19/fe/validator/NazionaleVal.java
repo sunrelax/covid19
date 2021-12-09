@@ -4,7 +4,6 @@
 package it.gc.covid19.fe.validator;
 
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.thymeleaf.util.ListUtils;
