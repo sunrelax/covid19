@@ -1,0 +1,13 @@
+[Unit]
+Description=covid19 load data
+After=network-online.target mongod.service
+Wants=network-online.target mongod.service
+
+[Service]
+ExecStart=/home/ubuntu/java/project/covid19/data/script.sh      
+Type=idle
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target
+

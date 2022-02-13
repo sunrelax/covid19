@@ -1,0 +1,9 @@
+[Unit]
+Description=My custom startup script of springboot covid19 web application
+
+[Service]
+ExecStart=/home/ubuntu/java/project/covid19/springboot/be/startupC19be.sh start
+
+
+[Install]
+WantedBy=multi-user.target
